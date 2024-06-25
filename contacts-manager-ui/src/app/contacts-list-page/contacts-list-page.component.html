@@ -1,1 +1,7 @@
-<app-contacts-list [contacts]="contacts" (onDelete)="deleteContact($event)"></app-contacts-list>
+<div class="container">
+    <h1>Contact List</h1>
+    <div class="button-container">
+        <button type="button" class="btn btn-success" (click)="navigateToAdd()">New</button>
+    </div>
+    <app-contacts-list [contacts]="contacts" (onDelete)="deleteContact($event)"></app-contacts-list>
+</div>

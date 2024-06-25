@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ContactService } from '../contacts/contact.service';
 import { Contact, GetContact } from '../shared/models/contact.model';
 import { switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contacts-list-page',
@@ -13,7 +14,9 @@ import { switchMap } from 'rxjs';
 export class ContactsListPageComponent {
   public contacts: GetContact[] = [];
 
-  constructor(private contactService: ContactService) { }
+  constructor(private contactService: ContactService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -28,6 +31,10 @@ export class ContactsListPageComponent {
     ).subscribe((data: GetContact[]) => {
       this.contacts = data;
     });
+  }
+
+  navigateToAdd() {
+    this.router.navigateByUrl('/add'); // Replace '/add' with the actual route path for adding a contact
   }
 
 }
