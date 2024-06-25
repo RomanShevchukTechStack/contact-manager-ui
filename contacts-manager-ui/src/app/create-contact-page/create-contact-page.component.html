@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <!-- Header -->
+    <!-- Main Content Area -->
+    <main>
+      <div class="row">
+        <div class="col-md-12 px">
+            <div class="text-center">
+                <h1>Create a New Contact</h1>
+                <p>Enter details to create a new contact.</p>
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add contact</h5>
+              <app-contact-form (newContact)="handleNewContact($event)"></app-contact-form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
