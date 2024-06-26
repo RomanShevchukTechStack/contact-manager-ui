@@ -1,10 +1,11 @@
 // contact.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Contact } from '../shared/models/contact.model';
+import { Contact } from '../models/contact.model';
+import { SortAndPaginationDTO } from '../DTOs/sortAndPagination.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,27 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  getContacts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl)
+  getContacts(searchValues: SortAndPaginationDTO | null): Observable<any[]> {
+    let params = new HttpParams();
+    if (searchValues) {
+      if (searchValues.searchValue) {
+        params = params.set('search', searchValues.searchValue);
+      }
+      if (searchValues.orderBy) {
+        params = params.set('orderBy', searchValues.orderBy);
+      }
+      if (searchValues.orderDirection) {
+        params = params.set('orderDirection', searchValues.orderDirection);
+      }
+      if (searchValues.pageNumber) {
+        params = params.set('pageNumber', searchValues.pageNumber.toString());
+      }
+      if (searchValues.pageSize) {
+        params = params.set('pageSize', searchValues.pageSize.toString());
+      }
+    }
+
+    return this.http.get<any[]>(this.apiUrl, { params })
       .pipe(
         catchError(this.handleError)
       );

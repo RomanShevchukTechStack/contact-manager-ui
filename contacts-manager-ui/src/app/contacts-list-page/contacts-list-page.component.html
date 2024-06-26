@@ -3,5 +3,5 @@
     <div class="button-container mb-3">
         <button type="button" class="btn btn-success" (click)="navigateToAdd()">New</button>
     </div>
-    <app-contacts-list [contacts]="contacts" (onDelete)="deleteContact($event)" (onEdit)="navigateToEdit($event)"></app-contacts-list>
+    <app-contacts-list [contacts]="contacts" (onDelete)="deleteContact($event)" (onEdit)="navigateToEdit($event)" (onSearch)="onSearch($event)"></app-contacts-list>
 </div>
