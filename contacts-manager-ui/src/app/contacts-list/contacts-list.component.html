@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <input type="text" class="form-control" placeholder="Search..." [formControl]="searchControl" />
+    </div>
+  </div>
+
+<table class="table table-bordered table-hover table-responsive">
+  <thead>
+    <tr>
+      <th  scope="col">Id</th>
+      <th  scope="col">Firstname</th>
+      <th  scope="col">Lastname</th>
+      <th  scope="col">Email</th>
+      <th  scope="col">Edit</th>
+      <th  scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let contact of contacts">
+      <td>{{ contact.id }}</td>
+      <td>{{ contact.firstName }}</td>
+      <td>{{ contact.lastName }}</td>
+      <td>{{ contact.email }}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm" (click)="editContact(contact.id)">Edit</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

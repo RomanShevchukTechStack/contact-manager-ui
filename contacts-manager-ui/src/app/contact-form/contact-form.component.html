@@ -1,0 +1,47 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="needs-validation"  novalidate>
+
+    <div class="form-group">
+        <label for="firstName">First Name <span class="text-danger"
+                *ngIf="contactForm.get('firstName')?.hasError('required') && contactForm.get('firstName')?.touched">*</span>
+        </label>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name"
+            formControlName="firstName" required>
+
+        <small class="text-danger"
+            *ngIf="contactForm.get('firstName')?.hasError('required') && contactForm.get('firstName')?.touched">
+            This field is required.
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name
+            <span class="text-danger"
+                *ngIf="contactForm.get('lastName')?.hasError('required') && contactForm.get('lastName')?.touched">*</span>
+        </label>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" formControlName="lastName">
+        <small class="text-danger"
+            *ngIf="contactForm.get('lastName')?.hasError('required') && contactForm.get('lastName')?.touched">
+            This field is required.
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email address
+            <span class="text-danger"
+                *ngIf="contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched">*</span>
+        </label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+        <small class="text-danger"
+            *ngIf="contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched">
+            This field is required.
+        </small>
+
+        <small class="text-danger"
+            *ngIf="!contactForm.get('email')?.hasError('required') && contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+            Please enter valid email
+        </small>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-5" [disabled]="contactForm.invalid">Submit</button>
+
+</form>
