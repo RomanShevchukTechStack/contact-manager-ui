@@ -5,29 +5,69 @@
     </div>
   </div>
 
-<table class="table table-bordered table-hover table-responsive">
-  <thead>
-    <tr>
-      <th  scope="col">Id</th>
-      <th  scope="col">Firstname</th>
-      <th  scope="col">Lastname</th>
-      <th  scope="col">Email</th>
-      <th  scope="col">Edit</th>
-      <th  scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let contact of contacts">
-      <td>{{ contact.id }}</td>
-      <td>{{ contact.firstName }}</td>
-      <td>{{ contact.lastName }}</td>
-      <td>{{ contact.email }}</td>
-      <td>
-        <button type="button" class="btn btn-primary btn-sm" (click)="editContact(contact.id)">Edit</button>
-      </td>
-      <td>
-        <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-bordered table-hover table-responsive"
+    *ngIf="TableContactsDTO && TableContactsDTO.contacts && TableContactsDTO.contacts.length > 0">
+    <thead>
+      <tr>
+        <th scope="col" (click)="onSortChange('id')">
+          Id
+          <i *ngIf="sortAndPaginationDTO.orderBy === 'id'"
+            class="bi bi-arrow-{{ sortAndPaginationDTO.orderDirection == 'asc' ? 'up' : 'down' }}"></i>
+        </th>
+        <th scope="col" (click)="onSortChange('firstName')">
+          Firstname
+          <i *ngIf="sortAndPaginationDTO.orderBy === 'firstName'"
+            class="bi bi-arrow-{{ sortAndPaginationDTO.orderDirection == 'asc' ? 'up' : 'down' }}"></i>
+        </th>
+        <th scope="col" (click)="onSortChange('lastName')">
+          Lastname
+          <i *ngIf="sortAndPaginationDTO.orderBy === 'lastName'"
+            class="bi bi-arrow-{{ sortAndPaginationDTO.orderDirection == 'asc' ? 'up' : 'down' }}"></i>
+        </th>
+        <th scope="col" (click)="onSortChange('email')">
+          Email
+          <i *ngIf="sortAndPaginationDTO.orderBy === 'email'"
+            class="bi bi-arrow-{{ sortAndPaginationDTO.orderDirection == 'asc' ? 'up' : 'down' }}"></i>
+        </th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of TableContactsDTO.contacts">
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.firstName }}</td>
+        <td>{{ contact.lastName }}</td>
+        <td>{{ contact.email }}</td>
+        <td>
+          <button type="button" class="btn btn-primary btn-sm" (click)="editContact(contact.id)">Edit</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example mt-0" *ngIf="TableContactsDTO">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" (click)="goToPage((sortAndPaginationDTO?.pageNumber ?? 2) - 1)"
+          [class.disabled]="sortAndPaginationDTO.pageNumber === 1">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let pageNumber of getPagesArary()">
+        <a class="page-link" (click)="goToPage(pageNumber)"
+          [class.active]="pageNumber === sortAndPaginationDTO.pageNumber">{{ pageNumber
+          }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="goToPage((sortAndPaginationDTO?.pageNumber ?? 1) + 1)"
+          [class.disabled]="sortAndPaginationDTO.pageNumber === TableContactsDTO.totalPages">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="alert alert-info"
+    *ngIf="TableContactsDTO && (!TableContactsDTO.contacts || TableContactsDTO.contacts.length === 0)">
+    No data available.
+  </div>
+</div>

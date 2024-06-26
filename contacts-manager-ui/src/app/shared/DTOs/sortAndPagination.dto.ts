@@ -1,7 +1,9 @@
+import { SortDirection } from "../enums/sortDirestion.enum";
+
 export interface SortAndPaginationDTO {
   searchValue?: string;
   orderBy?: string;
-  orderDirection?: 'asc' | 'desc';
+  orderDirection?: SortDirection;
   pageNumber?: number;
   pageSize?: number;
 }

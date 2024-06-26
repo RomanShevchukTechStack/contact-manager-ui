@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact, GetContactDTO } from '../shared/models/contact.model';
-import { ContactService } from '../contacts/contact.service';
+import { ContactService } from '../shared/services/contact.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
@@ -34,6 +34,8 @@ export class ContactPageComponent implements OnInit {
       this.getContactDetails(contactId);
     }
   }
+
+  
 
   handleAddorUpdateContact(contact: Contact) {
     if (this.isNewContact)

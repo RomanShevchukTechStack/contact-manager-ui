@@ -1,0 +1,17 @@
+th {
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: aqua;
+}
+.bi {
+    position: absolute;
+}
+a {
+    color: black;
+}
+
+a:hover {
+    color: grey;
+}

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ContactService } from '../contacts/contact.service';
-import { Contact, GetContactDTO } from '../shared/models/contact.model';
+import { ContactService } from '../shared/services/contact.service';
+import { Contact, GetContactDTO, TableContactsDTO } from '../shared/models/contact.model';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { SortAndPaginationDTO } from '../shared/DTOs/sortAndPagination.dto';
 
 @Component({
   selector: 'app-contacts-list-page',
@@ -13,34 +14,29 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ContactsListPageComponent {
-  public contacts: GetContactDTO[] = [];
+  public contacts!: TableContactsDTO;
 
   constructor(private contactService: ContactService,
-    private router: Router, 
+    private router: Router,
     private toastr: ToastrService
   ) { }
 
   ngOnInit() {
-
-    this.contactService.getContacts().subscribe((data: GetContactDTO[]) => {
-      this.contacts = data
-    });
+    this.getContacts(null);
   }
 
   deleteContact(id: string) {
     this.contactService.deleteContact(id).pipe(
-      switchMap(() => this.contactService.getContacts()),
+      switchMap(() => this.contactService.getContacts(null)),
       tap(() => {
         this.toastr.success('Contact deleted successfully!', 'Success');
       }),
       catchError((error) => {
-        console.log(error);
-        if (error.status === 404) {
-          this.toastr.error('Try again later', 'Something went wrong');
-        } 
+        this.toastr.error('Try again later', 'Something went wrong');
         return of([]);
       })
-    ).subscribe((data: GetContactDTO[]) => {
+    ).subscribe((data: TableContactsDTO) => {
+      
       this.contacts = data;
     });
   }
@@ -51,6 +47,16 @@ export class ContactsListPageComponent {
 
   navigateToEdit(id: string) {
     this.router.navigateByUrl(`/edit/${id}`);
+  }
+
+  private getContacts(searchValues: SortAndPaginationDTO | null) {
+    this.contactService.getContacts(searchValues).subscribe((data: TableContactsDTO) => {
+      this.contacts = data
+    });
+  }
+
+  onSearch(searchValues: SortAndPaginationDTO) {
+    this.getContacts(searchValues);
   }
 
 }
