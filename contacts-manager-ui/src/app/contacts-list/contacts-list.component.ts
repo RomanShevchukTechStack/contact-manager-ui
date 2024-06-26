@@ -10,11 +10,12 @@ import { ContactService } from '../contacts/contact.service';
 export class ContactsListComponent {
   @Input() contacts: GetContact[] = [];
   @Output() onDelete: EventEmitter<string> = new EventEmitter();
+  @Output() onEdit: EventEmitter<string> = new EventEmitter();
   
   constructor(private contactService: ContactService) { }
   
-  editContact(contact: Contact) {
-
+  editContact(id: string) {
+    this.onEdit.emit(id);
   }
   
   deleteContact(id: string) {

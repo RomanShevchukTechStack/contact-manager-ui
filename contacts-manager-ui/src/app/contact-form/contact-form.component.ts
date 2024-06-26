@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Contact } from "../shared/models/contact.model";
+
 
 @Component({
   selector: 'app-contact-form',
@@ -8,12 +9,14 @@ import { Contact } from "../shared/models/contact.model";
   styleUrls: ['./contact-form.component.css']
 })
 export class ContactFormComponent implements OnInit {
+  @Input() contact: Contact| null = null;
   @Output() newContact = new EventEmitter<Contact>();
 
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.contactForm = this.fb.group({
+  constructor(private _fb: FormBuilder
+  ) {
+    this.contactForm = this._fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -21,9 +24,12 @@ export class ContactFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['contact'] && this.contact) {
+      this.contactForm.patchValue(this.contact);
+    }
+  }
 
   onSubmit(): void {
     if (this.contactForm.valid) {
@@ -34,20 +40,8 @@ export class ContactFormComponent implements OnInit {
           email: this.contactForm.value.email,
         };
         this.newContact.emit(newContact);
-        this.contactForm.reset();
       }
-    } else {
-      this.markFormGroupTouched(this.contactForm);
     }
-  }
-
-  private markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
-    });
   }
 }
 

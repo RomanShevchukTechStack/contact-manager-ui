@@ -1,12 +1,12 @@
-<table class="table">
+<table class="table  table-bordered">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Edit</th>
-      <th>Delete</th>
+      <th  scope="col">Id</th>
+      <th  scope="col">Firstname</th>
+      <th  scope="col">Lastname</th>
+      <th  scope="col">Email</th>
+      <th  scope="col">Edit</th>
+      <th  scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +16,7 @@
       <td>{{ contact.lastName }}</td>
       <td>{{ contact.email }}</td>
       <td>
-        <button type="button" class="btn btn-primary btn-sm" (click)="editContact(contact)">Edit</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="editContact(contact.id)">Edit</button>
       </td>
       <td>
         <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact.id)">Delete</button>

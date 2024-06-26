@@ -34,7 +34,11 @@ export class ContactsListPageComponent {
   }
 
   navigateToAdd() {
-    this.router.navigateByUrl('/add'); // Replace '/add' with the actual route path for adding a contact
+    this.router.navigateByUrl('/add'); 
+  }
+
+  navigateToEdit(id: string) {
+    this.router.navigateByUrl(`/edit/${id}`); 
   }
 
 }

@@ -21,7 +21,7 @@ export class ContactService {
       );
   }
 
-  getContact(id: number): Observable<any> {
+  getContact(id: string): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<any>(url)
       .pipe(
@@ -37,8 +37,8 @@ export class ContactService {
       );
   }
 
-  updateContact(id: number, contact: any): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+  updateContact(contact: Contact): Observable<any> {
+    const url = `${this.apiUrl}/${contact.id}`;
     return this.http.put<any>(url, contact)
       .pipe(
         catchError(this.handleError)
