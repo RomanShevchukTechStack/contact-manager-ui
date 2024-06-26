@@ -5,6 +5,6 @@ export interface Contact {
   email: string;
 }
 
-export interface GetContact extends Contact {
+export interface GetContactDTO extends Contact {
   id: string;
 }

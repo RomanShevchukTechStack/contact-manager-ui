@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ContactService } from '../contacts/contact.service';
-import { Contact, GetContact } from '../shared/models/contact.model';
-import { switchMap } from 'rxjs';
+import { Contact, GetContactDTO } from '../shared/models/contact.model';
+import { catchError, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,25 +13,35 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ContactsListPageComponent {
-  public contacts: GetContact[] = [];
+  public contacts: GetContactDTO[] = [];
 
   constructor(private contactService: ContactService,
-    private router: Router, private toastr: ToastrService
+    private router: Router, 
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
 
-    this.contactService.getContacts().subscribe((data: GetContact[]) => {
+    this.contactService.getContacts().subscribe((data: GetContactDTO[]) => {
       this.contacts = data
     });
   }
 
   deleteContact(id: string) {
     this.contactService.deleteContact(id).pipe(
-      switchMap(() => this.contactService.getContacts())
-    ).subscribe((data: GetContact[]) => {
+      switchMap(() => this.contactService.getContacts()),
+      tap(() => {
+        this.toastr.success('Contact deleted successfully!', 'Success');
+      }),
+      catchError((error) => {
+        console.log(error);
+        if (error.status === 404) {
+          this.toastr.error('Try again later', 'Something went wrong');
+        } 
+        return of([]);
+      })
+    ).subscribe((data: GetContactDTO[]) => {
       this.contacts = data;
-      this.toastr.success('Hello world!', 'Toastr fun!');
     });
   }
 

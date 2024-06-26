@@ -38,6 +38,7 @@ export class ContactFormComponent implements OnInit {
           firstName: this.contactForm.value.firstName,
           lastName: this.contactForm.value.lastName,
           email: this.contactForm.value.email,
+          id: this.contact ?  this.contact.id : undefined
         };
         this.newContact.emit(newContact);
       }
