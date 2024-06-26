@@ -9,6 +9,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { ContactsListPageComponent } from './contacts-list-page/contacts-list-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,12 +24,18 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule 
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   exports: [
     ContactFormComponent 
   ],
-  providers: [HttpClient],
+  
+  providers: [HttpClient,
+    provideAnimations(), // required animations providers
+    provideToastr(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
