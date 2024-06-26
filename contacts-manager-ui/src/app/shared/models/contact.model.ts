@@ -8,3 +8,10 @@ export interface Contact {
 export interface GetContactDTO extends Contact {
   id: string;
 }
+
+export interface TableContactsDTO{
+  contacts: GetContactDTO[];
+  totalCount: number;
+  pageNumber: number;
+  totalPages: number;
+}

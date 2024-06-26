@@ -35,6 +35,8 @@ export class ContactPageComponent implements OnInit {
     }
   }
 
+  
+
   handleAddorUpdateContact(contact: Contact) {
     if (this.isNewContact)
       this.addContact(contact);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ContactService } from '../shared/services/contact.service';
-import { Contact, GetContactDTO } from '../shared/models/contact.model';
+import { Contact, GetContactDTO, TableContactsDTO } from '../shared/models/contact.model';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { SortAndPaginationDTO } from '../shared/DTOs/sortAndPagination.dto';
 })
 
 export class ContactsListPageComponent {
-  public contacts: GetContactDTO[] = [];
+  public contacts!: TableContactsDTO;
 
   constructor(private contactService: ContactService,
     private router: Router,
@@ -35,7 +35,8 @@ export class ContactsListPageComponent {
         this.toastr.error('Try again later', 'Something went wrong');
         return of([]);
       })
-    ).subscribe((data: GetContactDTO[]) => {
+    ).subscribe((data: TableContactsDTO) => {
+      
       this.contacts = data;
     });
   }
@@ -49,13 +50,13 @@ export class ContactsListPageComponent {
   }
 
   private getContacts(searchValues: SortAndPaginationDTO | null) {
-    this.contactService.getContacts(searchValues).subscribe((data: GetContactDTO[]) => {
+    this.contactService.getContacts(searchValues).subscribe((data: TableContactsDTO) => {
       this.contacts = data
     });
   }
 
   onSearch(searchValues: SortAndPaginationDTO) {
-    console.log(searchValues);
+    this.getContacts(searchValues);
   }
 
 }

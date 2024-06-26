@@ -15,7 +15,7 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  getContacts(searchValues: SortAndPaginationDTO | null): Observable<any[]> {
+  getContacts(searchValues: SortAndPaginationDTO | null): Observable<any> {
     let params = new HttpParams();
     if (searchValues) {
       if (searchValues.searchValue) {
