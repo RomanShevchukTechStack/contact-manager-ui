@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ContactsListPageComponent } from './contacts-list-page/contacts-list-page.component';
-import { ContactPageComponent } from './contact-page/contact-page.component';
+import { ContactsListPageComponent } from './contacts/contacts-list-page/contacts-list-page.component';
+import { ContactPageComponent } from './contacts/contact-page/contact-page.component';
+
 
 const routes: Routes = [
   { path: '', component: ContactsListPageComponent },

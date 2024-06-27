@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Contact } from "../shared/models/contact.model";
+import { Contact } from "src/app/shared/models/contact.model";
 
 
 @Component({
