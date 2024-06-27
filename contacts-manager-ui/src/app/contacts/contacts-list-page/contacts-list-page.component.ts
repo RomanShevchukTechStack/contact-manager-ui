@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ContactService } from '../shared/services/contact.service';
-import { Contact, GetContactDTO, TableContactsDTO } from '../shared/models/contact.model';
+import { ContactService } from '../../shared/services/contact.service';
+import { Contact, GetContactDTO, TableContactsDTO } from '../../shared/models/contact.model';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { SortAndPaginationDTO } from '../shared/DTOs/sortAndPagination.dto';
+import { SortAndPaginationDTO } from '../../shared/DTOs/sortAndPagination.dto';
 
 @Component({
   selector: 'app-contacts-list-page',

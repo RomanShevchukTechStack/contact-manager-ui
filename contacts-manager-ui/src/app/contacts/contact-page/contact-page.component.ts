@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact, GetContactDTO } from '../shared/models/contact.model';
-import { ContactService } from '../shared/services/contact.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
+import { ContactService } from 'src/app/shared/services/contact.service';
+import { Contact } from 'src/app/shared/models/contact.model';
 
 @Component({
   selector: 'app-contact-page',

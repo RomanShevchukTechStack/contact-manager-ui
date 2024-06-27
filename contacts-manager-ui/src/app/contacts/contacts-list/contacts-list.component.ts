@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { Contact, GetContactDTO, TableContactsDTO } from '../shared/models/contact.model';
-import { ContactService } from '../shared/services/contact.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { SortAndPaginationDTO } from '../shared/DTOs/sortAndPagination.dto';
-import { SortDirection } from '../shared/enums/sortDirestion.enum';
+import { SortAndPaginationDTO } from 'src/app/shared/DTOs/sortAndPagination.dto';
+import { SortDirection } from 'src/app/shared/enums/sortDirestion.enum';
+import { TableContactsDTO } from 'src/app/shared/models/contact.model';
+import { ContactService } from 'src/app/shared/services/contact.service';
 
 @Component({
   selector: 'app-contacts-list',

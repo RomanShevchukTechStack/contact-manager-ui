@@ -6,12 +6,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Contact } from '../models/contact.model';
 import { SortAndPaginationDTO } from '../DTOs/sortAndPagination.dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactService {
-  private apiUrl = 'https://localhost:8088/api/contacts';
+  private apiUrl = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
